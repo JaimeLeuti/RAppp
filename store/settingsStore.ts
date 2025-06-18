@@ -5,19 +5,24 @@ import { Settings } from '@/types';
 
 interface SettingsState extends Settings {
   updateSettings: (settings: Partial<Settings>) => void;
+  resetSettings: () => void;
 }
 
 const defaultSettings: Settings = {
-  theme: 'light',
-  reminderEnabled: false,
-  reminderTime: '20:00',
+  theme: 'system',
+  reminderEnabled: true,
+  reminderTime: '09:00',
   weekStartsOn: 1, // Monday
   showCompletedTasks: true,
+  focusMode: false,
+  soundEnabled: true,
+  vibrationEnabled: true,
+  maxDailyTasks: 5,
 };
 
 export const useSettingsStore = create<SettingsState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...defaultSettings,
       
       updateSettings: (settings) => {
@@ -25,6 +30,10 @@ export const useSettingsStore = create<SettingsState>()(
           ...state,
           ...settings,
         }));
+      },
+      
+      resetSettings: () => {
+        set(defaultSettings);
       },
     }),
     {

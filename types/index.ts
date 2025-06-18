@@ -1,6 +1,7 @@
 export type TaskPriority = 1 | 2 | 3 | 4 | 5;
-
 export type TaskStatus = 'pending' | 'in_progress' | 'completed';
+export type GoalTimeframe = 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly' | 'custom';
+export type GoalType = 'effort' | 'quantity' | 'hybrid';
 
 export interface Task {
   id: string;
@@ -9,20 +10,19 @@ export interface Task {
   priority: TaskPriority;
   status: TaskStatus;
   date: string; // ISO date string (YYYY-MM-DD)
-  goalId?: string; // Optional reference to a goal
-  timeSpent: number; // Time spent in seconds
-  createdAt: string; // ISO datetime string
-  updatedAt: string; // ISO datetime string
+  goalId?: string;
+  timeSpent: number; // seconds
+  estimatedTime?: number; // seconds
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
 }
-
-export type GoalTimeframe = 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly' | 'custom';
-
-export type GoalType = 'effort' | 'quantity' | 'hybrid';
 
 export interface Milestone {
   id: string;
   title: string;
   completed: boolean;
+  dueDate?: string;
   createdAt: string;
 }
 
@@ -32,27 +32,45 @@ export interface Goal {
   description?: string;
   type: GoalType;
   timeframe: GoalTimeframe;
-  startDate: string; // ISO date string
-  endDate: string; // ISO date string
-  target: number; // Target value (time in seconds or quantity)
-  current: number; // Current progress
-  unit?: string; // Unit for quantity goals (e.g., "pages", "workouts")
+  startDate: string;
+  endDate: string;
+  target: number;
+  current: number;
+  unit?: string;
   milestones: Milestone[];
-  color: string; // Hex color code
+  color: string;
+  icon: string;
+  isArchived: boolean;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface DailyProgress {
-  date: string; // ISO date string (YYYY-MM-DD)
+  date: string;
   tasksCompleted: number;
-  timeSpent: number; // Time spent in seconds
+  timeSpent: number;
+  focusScore: number; // 0-100
+  streakCount: number;
 }
 
 export interface Settings {
-  theme: 'light' | 'dark';
+  theme: 'light' | 'dark' | 'system';
   reminderEnabled: boolean;
-  reminderTime: string; // HH:MM format
-  weekStartsOn: 0 | 1 | 6; // 0: Sunday, 1: Monday, 6: Saturday
+  reminderTime: string;
+  weekStartsOn: 0 | 1 | 6;
   showCompletedTasks: boolean;
+  focusMode: boolean;
+  soundEnabled: boolean;
+  vibrationEnabled: boolean;
+  maxDailyTasks: number;
+}
+
+export interface TimerSession {
+  id: string;
+  taskId: string;
+  startTime: string;
+  endTime?: string;
+  duration: number; // seconds
+  type: 'focus' | 'break';
+  completed: boolean;
 }

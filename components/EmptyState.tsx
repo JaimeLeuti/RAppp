@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Plus } from 'lucide-react-native';
 import { colors } from '@/constants/colors';
 
@@ -8,6 +8,7 @@ interface EmptyStateProps {
   message: string;
   actionLabel?: string;
   onAction?: () => void;
+  imageUrl?: string;
 }
 
 export default function EmptyState({
@@ -15,9 +16,18 @@ export default function EmptyState({
   message,
   actionLabel,
   onAction,
+  imageUrl,
 }: EmptyStateProps) {
   return (
     <View style={styles.container}>
+      {imageUrl && (
+        <Image 
+          source={{ uri: imageUrl }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+      )}
+      
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message}</Text>
       
@@ -25,6 +35,7 @@ export default function EmptyState({
         <TouchableOpacity 
           style={styles.button}
           onPress={onAction}
+          activeOpacity={0.8}
         >
           <Plus size={20} color={colors.white} />
           <Text style={styles.buttonText}>{actionLabel}</Text>
@@ -39,12 +50,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
+    padding: 32,
+  },
+  image: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 24,
+    opacity: 0.8,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: colors.gray800,
+    color: colors.gray900,
     marginBottom: 8,
     textAlign: 'center',
   },
@@ -52,20 +70,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.gray600,
     textAlign: 'center',
-    marginBottom: 24,
+    lineHeight: 24,
+    marginBottom: 32,
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.primary,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 16,
   },
   buttonText: {
     color: colors.white,
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '600',
     marginLeft: 8,
   },
 });

@@ -1,26 +1,19 @@
+import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import * as SplashScreen from 'expo-splash-screen';
+import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { colors } from '@/constants/colors';
 
-// Prevent the splash screen from auto-hiding
-SplashScreen.preventAutoHideAsync();
-
 export default function RootLayout() {
-  useEffect(() => {
-    // Hide the splash screen after a short delay
-    const hideSplash = async () => {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      await SplashScreen.hideAsync();
-    };
-    
-    hideSplash();
-  }, []);
-  
+  const isReady = useFrameworkReady();
+
+  if (!isReady) {
+    return null;
+  }
+
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style="auto" />
       <Stack
         screenOptions={{
           headerStyle: {
@@ -52,6 +45,14 @@ export default function RootLayout() {
             presentation: 'card',
           }} 
         />
+        <Stack.Screen 
+          name="settings" 
+          options={{ 
+            title: 'Settings',
+            presentation: 'card',
+          }} 
+        />
+        <Stack.Screen name="+not-found" />
       </Stack>
     </>
   );

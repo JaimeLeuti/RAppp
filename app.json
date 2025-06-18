@@ -1,42 +1,43 @@
 {
-    "expo": {
-      "name": "DoFive: Focused Goal & Task Manager",
-      "slug": "dofive-focused-goal-task-manager",
-      "version": "1.0.0",
-      "orientation": "portrait",
-      "icon": "./assets/images/icon.png",
-      "scheme": "myapp",
-      "userInterfaceStyle": "automatic",
-      "newArchEnabled": true,
-      "splash": {
-        "image": "./assets/images/splash-icon.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#ffffff"
+  "expo": {
+    "name": "DoFive: Focused Goal & Task Manager",
+    "slug": "dofive-focused-goal-task-manager",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "dofive",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#6366F1"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dofive.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#6366F1"
       },
-      "ios": {
-        "supportsTablet": true,
-        "bundleIdentifier": "app.rork.dofive-focused-goal-task-manager"
-      },
-      "android": {
-        "adaptiveIcon": {
-          "foregroundImage": "./assets/images/adaptive-icon.png",
-          "backgroundColor": "#ffffff"
-        },
-        "package": "app.rork.dofive-focused-goal-task-manager"
-      },
-      "web": {
-        "favicon": "./assets/images/favicon.png"
-      },
-      "plugins": [
-        [
-          "expo-router",
-          {
-            "origin": "https://rork.com/"
-          }
-        ]
-      ],
-      "experiments": {
-        "typedRoutes": true
-      }
+      "package": "com.dofive.app"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png",
+      "output": "single"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://dofive.app/"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
     }
   }
+}
